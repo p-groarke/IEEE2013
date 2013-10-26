@@ -15,3 +15,6 @@
 # emacs temp files
 *~
 \#*\#
+
+# executables
+computerSociety/robbie
