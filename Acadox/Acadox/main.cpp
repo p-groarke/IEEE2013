@@ -23,36 +23,24 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
-
     stack<int> intStack;
-    stack<string> stringStack;
 
     string input;
 
     getline(cin, input);
 
-//    stringstream ss;
-//    ss << hex << input;
-//    cout << dec << ss.str() << endl;
-
     istringstream buf(input);
     istream_iterator<string> beg(buf), end;
     vector<string> tokens(beg, end);
 
-//    for (auto x: tokens)
-//    {
-//        cout << x << endl;
-//    }
-
-
-
-    // Convertir en hex
+    // Convertir de hex a dec
     for (int i = 0; i < tokens.size(); ++i)
     {
         if (tokens[i] == "+" || tokens[i] == "-"
             || tokens[i] == "&" || tokens[i] == "|"
             || tokens[i] == "~" || tokens[i] == "X")
         {
+            // Do nothing, operator not number
         }
         else
         {
@@ -61,90 +49,71 @@ int main(int argc, const char * argv[])
         }
     }
 
-    // Creer un stack pour pas gerer de compteur
-    for(int i = tokens.size() - 1; i >= 0; --i)
+    for(int i = 0; i < tokens.size(); ++i)
     {
-        stringStack.push(tokens[i]);
+        // If it's a number simply push it on the stack
+        if(isdigit(tokens[i].c_str()[0]))
+            intStack.push(atoi(tokens[i].c_str()));
+        else // Else it's an operator, so just do that shit man
+        {
+            int result;
+            
+            if(tokens[i].c_str()[0] == '~') // Only unary operator
+            {
+                if(intStack.size() < 1)
+                {
+                    cout << "ERROR" << endl;
+                    return 0;
+                }
+
+                result = ~(intStack.top());
+                intStack.pop();
+            }
+            else // All binary operators
+            {
+                if(intStack.size() < 2)
+                {
+                    cout << "ERROR" << endl;
+                    return 0;
+                }
+
+                int right = intStack.top();
+                intStack.pop();
+                int left = intStack.top();
+                intStack.pop();
+                
+                switch(tokens[i].c_str()[0])
+                {
+                case '+':
+                    result = left + right;
+                    break;
+                case '-':
+                    result = left - right;
+                    break;
+                case '&':
+                    result = left & right;
+                    break;
+                case '|':
+                    result = left | right;
+                    break;
+                case 'X':
+                    result = left ^ right;
+                    break;
+                default:
+                    cout << "ERROR" << endl;
+                    return 0;
+                }
+            }
+
+            if(result < 0)
+                result = 0;
+            else if(result > 65535)
+                result = 65535;
+
+            intStack.push(result);
+        }
     }
 
-//    for (int i = 0; i < tokens.size(); ++i)
-//    {
-//        cout << stringStack.top() << endl;
-//        stringStack.pop();
-//    }
-
-
-    while (stringStack.size() != 0)
-    {
-        if(!stringStack.top().compare("+"))
-        {
-            stringStack.pop();
-            int num2 = intStack.top();
-            intStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(num1 + num2);
-        }
-
-        else if(!stringStack.top().compare("-"))
-        {
-            stringStack.pop();
-            int num2 = intStack.top();
-            intStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(num1 - num2);
-        }
-
-        else if(!stringStack.top().compare("&"))
-        {
-            stringStack.pop();
-            int num2 = intStack.top();
-            intStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(num1 & num2);
-        }
-
-        else if(!stringStack.top().compare("|"))
-        {
-            stringStack.pop();
-            int num2 = intStack.top();
-            intStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(num1 | num2);
-        }
-
-        else if(!stringStack.top().compare("~"))
-        {
-            stringStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(~num1);
-        }
-
-        else if(!stringStack.top().compare("X"))
-        {
-            stringStack.pop();
-            int num2 = intStack.top();
-            intStack.pop();
-            int num1 = intStack.top();
-            intStack.pop();
-            intStack.push(num1 ^ num2);
-        }
-
-        else if(isdigit(stringStack.top().c_str()[0]))
-        {
-            intStack.push(atof(stringStack.top().c_str()));
-            stringStack.pop();
-        }
-
-    }
-
-
-    cout << setw(4) << setfill('0') << hex << (int)intStack.top();
-
-
+    cout << setw(4) << setfill('0') << uppercase << hex << (int)intStack.top();
     return 0;
 }
