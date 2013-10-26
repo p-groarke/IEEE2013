@@ -28,15 +28,15 @@ public:
 
     int generate()
     {
-	int _currentX = a * _previousX + (c % m);
-	_previousX = _currentX;
-	return _currentX;
+        int _currentX = a * _previousX + (c % m);
+        _previousX = _currentX;
+        return _currentX;
     }
     
     int generate(int min, int max)
     {
-	generate();
-	return abs((_previousX % max) + min);
+        generate();
+        return abs((_previousX % max) + min);
     }
     
 private:
@@ -50,24 +50,24 @@ public:
     Cell(CellType cellType)
     : _cellType(cellType)
     {
-	// Initially all cells have walls on four directions
-	for(int i = 0; i < NB_DIRECTIONS; ++i)
-	    _wall[i] = true;
+        // Initially all cells have walls on four directions
+        for(int i = 0; i < NB_DIRECTIONS; ++i)
+            _wall[i] = true;
     }
 
     bool hasWall(Direction dir)
     {
-	return _wall[dir];
+        return _wall[dir];
     }
 
     CellType getCellType() const
     {
-	return _cellType;
+        return _cellType;
     }
 
     void setCellType(CellType newType)
     {
-	_cellType = newType;
+        _cellType = newType;
     }
 
 private:
@@ -79,98 +79,98 @@ class Maze
 {
 public:
     Maze(int rows, int columns, int pWall, LCG* generator)
-	: _rows(rows), _columns(columns), _pWall(pWall), _generator(generator)
+        : _rows(rows), _columns(columns), _pWall(pWall), _generator(generator)
     {
-	for(int i = 0; i < _rows; ++i)
-	{
-	    vector<Cell> currentRow;
-	    
-	    for(int j = 0; j < _columns; ++j)
-	    {
-		CellType currentType = computeCellType(i, j);
-		Cell currentCell(currentType);
-		currentRow.push_back(currentType);
-	    }
+        for(int i = 0; i < _rows; ++i)
+        {
+            vector<Cell> currentRow;
+            
+            for(int j = 0; j < _columns; ++j)
+            {
+                CellType currentType = computeCellType(i, j);
+                Cell currentCell(currentType);
+                currentRow.push_back(currentType);
+            }
 
-	    _maze.push_back(currentRow);
-	}
+            _maze.push_back(currentRow);
+        }
 
-	setStartingPosition();
+        setStartingPosition();
     }
 
     CellType getCellType(int row, int column)
     {
-	return _maze[row][column].getCellType();
+        return _maze[row][column].getCellType();
     }
     
 private:
     CellType computeCellType(int row, int column)
     {
-	if(row == 0 || row == _rows - 1)
-	{
-	    if(column == 0 || column == _columns - 1)
-		return CORNER;
-	    else
-		return BORDER;
-	}
-	else if(column == 0 || column == _columns - 1)
-	{
-	    //All corners will have been treated in previous if
-	    return BORDER;
-	}
-	else
-	{
-	    return INNER;
-	}
+        if(row == 0 || row == _rows - 1)
+        {
+            if(column == 0 || column == _columns - 1)
+                return CORNER;
+            else
+                return BORDER;
+        }
+        else if(column == 0 || column == _columns - 1)
+        {
+            //All corners will have been treated in previous if
+            return BORDER;
+        }
+        else
+        {
+            return INNER;
+        }
     }
 
     void setStartingPosition()
     {
-	int numberBorderCells = 2 * ((_rows - 2) + (_columns - 2));
-	
-	int cellNumber = _generator->generate(1, numberBorderCells);
-	int currentCellNumber = 0;
+        int numberBorderCells = 2 * ((_rows - 2) + (_columns - 2));
+        
+        int cellNumber = _generator->generate(1, numberBorderCells);
+        int currentCellNumber = 0;
 
-	for(int i = 0; i < _rows; ++i)
-	{
-	    if(i == 0 || i == _rows -1) //For top and bottom rows, exclude corners
-	    {
-		for(int j = 1; j < _columns - 1; ++j)
-		{
-		    ++currentCellNumber;
-		    if(currentCellNumber == cellNumber)
-		    {
-			_startRow = i;
-			_startColumn = j;
-			_maze[i][j].setCellType(START);
-			return;
-		    }
-		}
-	    }
-	    else // For middle rows, exclude inner cells
-	    {
-		int j = 0;
-		++currentCellNumber;
-		if(currentCellNumber == cellNumber)
-		{
-		    _startRow = i;
-		    _startColumn = j;
-		    _maze[i][j].setCellType(START);
-		    return;
-		}
-		
-		// I hope you like duplicated code
-		j = _columns - 1;
-		++currentCellNumber;
-		if(currentCellNumber == cellNumber)
-		{
-		    _startRow = i;
-		    _startColumn = j;
-		    _maze[i][j].setCellType(START);
-		    return;
-		}
-	    }
-	}
+        for(int i = 0; i < _rows; ++i)
+        {
+            if(i == 0 || i == _rows -1) //For top and bottom rows, exclude corners
+            {
+                for(int j = 1; j < _columns - 1; ++j)
+                {
+                    ++currentCellNumber;
+                    if(currentCellNumber == cellNumber)
+                    {
+                        _startRow = i;
+                        _startColumn = j;
+                        _maze[i][j].setCellType(START);
+                        return;
+                    }
+                }
+            }
+            else // For middle rows, exclude inner cells
+            {
+                int j = 0;
+                ++currentCellNumber;
+                if(currentCellNumber == cellNumber)
+                {
+                    _startRow = i;
+                    _startColumn = j;
+                    _maze[i][j].setCellType(START);
+                    return;
+                }
+                
+                // I hope you like duplicated code
+                j = _columns - 1;
+                ++currentCellNumber;
+                if(currentCellNumber == cellNumber)
+                {
+                    _startRow = i;
+                    _startColumn = j;
+                    _maze[i][j].setCellType(START);
+                    return;
+                }
+            }
+        }
     }
     
     int _rows;
@@ -190,7 +190,7 @@ class Robot
 {
 public:
     Robot(int maxMoves, int row, int column)
-	: _facing(EAST), _moves(0), _maxMoves(maxMoves), _row(row), _column(column)
+        : _facing(EAST), _moves(0), _maxMoves(maxMoves), _row(row), _column(column)
     {
     }
 
