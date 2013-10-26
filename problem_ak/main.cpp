@@ -17,17 +17,17 @@ public:
 
     void addParent(Node* parent)
     {
-	_parents.push_back(parent);
+        _parents.push_back(parent);
     }
 
     void addChild(Node* child)
     {
-	_children.push_back(child);
+        _children.push_back(child);
     }
 
     int getId() const
     {
-	return _id;
+        return _id;
     }
 
 private:
@@ -44,32 +44,32 @@ int main()
 
     for(int i = 0; i < nbNodes; ++i)
     {
-	cin >> idA >> idB;
-	Node* nodeA;
-	Node* nodeB;
-	
-	if(network.count(idA) != 0)
-	{
-	    nodeA = network[idA];
-	}
-	else
-	{
-	    nodeA = new Node(idA);
-	    network[idA] = nodeA;
-	}
-	
-	if(network.count(idB) != 0)
-	{
-	    nodeB = network[idB];
-	}
-	else
-	{
-	    nodeB = new Node(idB);
-	    network[idB] = nodeB;
-	}
+        cin >> idA >> idB;
+        Node* nodeA;
+        Node* nodeB;
+        
+        if(network.count(idA) != 0)
+        {
+            nodeA = network[idA];
+        }
+        else
+        {
+            nodeA = new Node(idA);
+            network[idA] = nodeA;
+        }
+        
+        if(network.count(idB) != 0)
+        {
+            nodeB = network[idB];
+        }
+        else
+        {
+            nodeB = new Node(idB);
+            network[idB] = nodeB;
+        }
 
-	nodeA->addChild(nodeB);
-	nodeB->addParent(nodeA);
+        nodeA->addChild(nodeB);
+        nodeB->addParent(nodeA);
     }
 
     // Get all origin nodes
