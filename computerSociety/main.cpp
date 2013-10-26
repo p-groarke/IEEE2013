@@ -70,6 +70,11 @@ public:
         _cellType = newType;
     }
 
+    void removeWall(Direction direction)
+    {
+        _wall[direction] = false;
+    }
+
 private:
     bool _wall[NB_DIRECTIONS];
     CellType _cellType;
@@ -96,6 +101,8 @@ public:
         }
 
         setStartingPosition();
+        setExitPosition();
+        generateOpenings();
     }
 
     CellType getCellType(int row, int column)
@@ -172,6 +179,91 @@ private:
             }
         }
     }
+
+    void setExitPosition()
+    {
+        // Minus one because starting position is excluded
+        int numberBorderCells = 2 * ((_rows - 2) + (_columns - 2)) - 1;
+
+        int cellNumber = _generator->generate(1, numberBorderCells);
+        int currentCellNumber = 0;
+
+        for(int i = 0; i < _rows; ++i)
+        {
+            if(i == 0 || i == _rows -1) //For top and bottom rows, exclude corners
+            {
+                for(int j = 1; j < _columns - 1; ++j)
+                {
+                    if(i != _startRow || j != _startColumn)
+                        ++currentCellNumber;
+                    if(currentCellNumber == cellNumber)
+                    {
+                        _maze[i][j].setCellType(EXIT);
+                        // Make opening for exit
+                        if(i == 0)
+                            _maze[i][j].removeWall(NORTH);
+                        else
+                            _maze[i][j].removeWall(SOUTH);
+                        return;
+                    }
+                }
+            }
+            else // For middle rows, exclude inner cells
+            {
+                int j = 0;
+                if(i != _startRow || j != _startColumn)
+                    ++currentCellNumber;
+                if(currentCellNumber == cellNumber)
+                {
+                    _maze[i][j].setCellType(EXIT);
+                    _maze[i][j].removeWall(WEST);
+                    return;
+                }
+                
+                // I hope you like duplicated code
+                j = _columns - 1;
+                if(i != _startRow || j != _startColumn)
+                    ++currentCellNumber;
+                if(currentCellNumber == cellNumber)
+                {
+                    _maze[i][j].setCellType(EXIT);
+                    _maze[i][j].removeWall(WEST);
+                    return;
+                }
+            }
+        }
+    }
+
+    void generateOpenings()
+    {
+        for(int i = 1; i < _rows - 1; ++i)
+        {
+            for(int j = 1; j < _columns - 1; ++j)
+            {
+                switch(_generator->generate(1, 4))
+                {
+                case 1:
+                    _maze[i][j].removeWall(NORTH);
+                    _maze[i - 1][j].removeWall(SOUTH);
+                    break;
+                case 2:
+                    _maze[i][j].removeWall(SOUTH);
+                    _maze[i + 1][j].removeWall(NORTH);
+                    break;
+                case 3:
+                    _maze[i][j].removeWall(WEST);
+                    _maze[i][j - 1].removeWall(EAST);
+                    break;
+                case 4:
+                    _maze[i][j].removeWall(EAST);
+                    _maze[i][j + 1].removeWall(WEST);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
     
     int _rows;
     int _columns;
@@ -203,6 +295,6 @@ private:
 };
 
 int main()
-{    
+{
     return 0;
 }
