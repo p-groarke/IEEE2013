@@ -70,6 +70,11 @@ public:
         _cellType = newType;
     }
 
+    void addWall(Direction direction)
+    {
+        _wall[direction] = true;
+    }
+
     void removeWall(Direction direction)
     {
         _wall[direction] = false;
@@ -123,6 +128,67 @@ public:
     int getStartColumn()
     {
         return _startColumn;
+    }
+
+    void updateAfterMove()
+    {
+        // Update inner cells only
+        for(int i = 1; i < _rows - 1; ++i)
+        {
+            for(int j = 1; j < _columns - 1; ++j)
+            {
+                int random;
+                
+                // North
+                random = _generator->generate(1, 100);
+                if(random < _pWall)
+                {
+                    _maze[i][j].addWall(NORTH);
+                    _maze[i - 1][j].addWall(SOUTH);
+                }
+                else
+                {
+                    _maze[i][j].removeWall(NORTH);
+                    _maze[i - 1][j].removeWall(SOUTH);
+                }
+                // South
+                random = _generator->generate(1, 100);
+                if(random < _pWall)
+                {
+                    _maze[i][j].addWall(SOUTH);
+                    _maze[i + 1][j].addWall(NORTH);
+                }
+                else
+                {
+                    _maze[i][j].removeWall(SOUTH);
+                    _maze[i + 1][j].removeWall(NORTH);
+                }
+                // West
+                random = _generator->generate(1, 100);
+                if(random < _pWall)
+                {
+                    _maze[i][j].addWall(WEST);
+                    _maze[i][j - 1].addWall(EAST);
+                }
+                else
+                {
+                    _maze[i][j].removeWall(WEST);
+                    _maze[i][j - 1].removeWall(EAST);
+                }
+                // East
+                random = _generator->generate(1, 100);
+                if(random < _pWall)
+                {
+                    _maze[i][j].addWall(EAST);
+                    _maze[i][j + 1].addWall(WEST);
+                }
+                else
+                {
+                    _maze[i][j].removeWall(EAST);
+                    _maze[i][j + 1].removeWall(WEST);
+                }
+            }
+        }
     }
     
 private:
@@ -310,6 +376,8 @@ public:
             turnClockWise();
 
         ++_moves;
+
+        _maze->updateAfterMove();
     }
 
     bool hasExited()
@@ -364,11 +432,13 @@ private:
 
 int main()
 {
-    int seed = 999;
-    int rows = 10;
-    int columns = 10;
-    int pWall = 50;
-    int maxMoves = 1000;
+    int seed;
+    int rows;
+    int columns;
+    int pWall;
+    int maxMoves;
+
+    cin >> seed >> rows >> columns >> pWall >> maxMoves;
     
     LCG generator(seed);
     Maze maze(rows, columns, pWall, &generator);
