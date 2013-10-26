@@ -30,11 +30,30 @@ public:
         return _id;
     }
 
+    int getLevel()
+    {
+        return level_;
+    }
+
+    void setLevel(int lev)
+    {
+        level_ = lev;
+    }
+
 private:
     vector<Node*> _parents;
     vector<Node*> _children;
     int _id;
+    int level_;
 };
+
+
+
+
+
+
+
+
 
 int main() 
 {
@@ -77,6 +96,8 @@ int main()
     // Find all paths that start from origin node and end on exit node
     // Find all nodes that are present in all of these paths which aren't exit nodes
     // These nodes will be the bottlenecks (aka answers to the problem)
+
+
     
     return 0;
 }
