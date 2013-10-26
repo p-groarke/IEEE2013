@@ -109,6 +109,21 @@ public:
     {
         return _maze[row][column].getCellType();
     }
+
+    bool hasWall(int row, int column, Direction direction)
+    {
+        return _maze[row][column].hasWall(direction);
+    }
+
+    int getStartRow()
+    {
+        return _startRow;
+    }
+
+    int getStartColumn()
+    {
+        return _startColumn;
+    }
     
 private:
     CellType computeCellType(int row, int column)
@@ -281,20 +296,91 @@ private:
 class Robot
 {
 public:
-    Robot(int maxMoves, int row, int column)
-        : _facing(EAST), _moves(0), _maxMoves(maxMoves), _row(row), _column(column)
+    Robot(int maxMoves, int row, int column, Maze* maze)
+        : _facing(EAST), _moves(0), _maxMoves(maxMoves), _row(row), _column(column), _maze(maze)
     {
     }
 
+    void move()
+    {
+        if(!_maze->hasWall(_row, _column, _facing)
+           && _maze->hasWall(_row, _column, (Direction)((_facing + 1) % NB_DIRECTIONS)))
+            moveForward();
+        else
+            turnClockWise();
+
+        ++_moves;
+    }
+
+    bool hasExited()
+    {
+        return _maze->getCellType(_row, _column) == EXIT;
+    }
+
+    bool hasReachedMaxMoves()
+    {
+        return _moves >= _maxMoves;
+    }
+
+    int getMoves()
+    {
+        return _moves;
+    }
+
 private:
+    void turnClockWise()
+    {
+        _facing = (Direction)((_facing + 1) % NB_DIRECTIONS);
+    }
+    
+    void moveForward()
+    {
+        switch(_facing)
+        {
+        case NORTH:
+            --_row;
+            break;
+        case EAST:
+            ++_column;
+            break;
+        case SOUTH:
+            ++_row;
+            break;
+        case WEST:
+            --_column;
+            break;
+        default:
+            break;
+        }
+    }
+    
     Direction _facing;
     int _moves;
     int _maxMoves;
     int _row;
     int _column;
+    Maze* _maze; // Pointer to Maze declared in main
 };
 
 int main()
 {
+    int seed = 999;
+    int rows = 10;
+    int columns = 10;
+    int pWall = 50;
+    int maxMoves = 1000;
+    
+    LCG generator(seed);
+    Maze maze(rows, columns, pWall, &generator);
+    Robot robbie(maxMoves, maze.getStartRow(), maze.getStartColumn(), &maze);
+
+    while(!robbie.hasExited() && !robbie.hasReachedMaxMoves())
+        robbie.move();
+
+    if(robbie.hasExited())
+        cout << "Robbie got out of the maze in " << robbie.getMoves() << " moves." << endl;
+    else
+        cout << "Robbie was trapped in the maze." << endl;
+    
     return 0;
 }
