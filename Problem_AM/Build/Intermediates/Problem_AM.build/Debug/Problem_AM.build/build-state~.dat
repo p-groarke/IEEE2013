@@ -1,0 +1,60 @@
+TProblem_AM
+v6
+r1
+cCheck dependencies
+cCompileC Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/SDKSettings.plist
+c00000000526ADC92000000000000044C
+t1382734994
+s1100
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/CoreServices/SystemVersion.plist
+c00000000526ADC9200000000000001DB
+t1382734994
+s475
+
+N/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o
+t2
+s0
+
+N/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp
+c00000000526B4BF8000000000000024B
+t1382763512
+s587
+
+CBuild AST from /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp
+r0
+
+CCheck dependencies
+r0
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies75c9e08a831bb841^b248e38a831bb841^---0#1#1#--18"Check dependencies36"D0E87B6E-C72F-446C-A98F-E1070B6F0B7D-
+
+CCompileC Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s404456330.886694
+e404456331.260221
+r0
+xCompileC
+xBuild/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o
+x/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp
+o/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:22:13: warning: unused variable 'weight' [-Wunused-variable]
+o        int weight = numeric_limits<int>::max();
+o            ^
+o/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:21:13: warning: unused variable 'price' [-Wunused-variable]
+o        int price = 0;
+o            ^
+o/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:28:9: error: use of undeclared identifier 'connections'
+o        connections.push_back(block);
+o        ^
+o2 warnings and 1 error generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"Compile /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp179"CompileC Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o Problem_AM/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler691be38a831bb841^569c428b831bb841^-620"/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:22:13: warning: unused variable 'weight' [-Wunused-variable]        int weight = numeric_limits<int>::max();            ^/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:21:13: warning: unused variable 'price' [-Wunused-variable]        int price = 0;            ^/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp:28:9: error: use of undeclared identifier 'connections'        connections.push_back(block);        ^2 warnings and 1 error generated.3(36%IDEClangDiagnosticActivityLogMessage2@24"Unused variable 'weight'-404456331#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@102"file://localhost/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp0000000000000000^21#12#21#12#354#0#19"Unused Entity Issue--2@23"Unused variable 'price'-404456331#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@102"file://localhost/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp0000000000000000^20#12#20#12#331#0#19"Unused Entity Issue--2@42"Use of undeclared identifier 'connections'-404456331#18446744073709551615#0#-2#27"com.apple.dt.IDE.diagnostic3@102"file://localhost/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp0000000000000000^27#8#27#8#485#0#14"Semantic Issue--0#0#1#-19%DVTDocumentLocation4@102"file://localhost/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp0000000000000000^3232"CompileC Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o Problem_AM/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.8 -g -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Problem_AM-generated-files.hmap -I/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Problem_AM-own-target-headers.hmap -I/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Problem_AM-all-target-headers.hmap -iquote /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Problem_AM-project-headers.hmap -I/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/DerivedSources/x86_64 -I/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/DerivedSources -F/Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Debug -MMD -MT dependencies -MF /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.dia -c /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Problem_AM/main.cpp -o /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Intermediates/Problem_AM.build/Debug/Problem_AM.build/Objects-normal/x86_64/main.o36"4C851C13-9671-411A-8C70-96CAD72F6D0F-
+b44E63DC4-4800-4193-B02A-735B04F668BF
+
+CLd /Volumes/User/philippe_groarke/Documents/XCode/IEEE2013/Problem_AM/Build/Debug/Problem_AM normal x86_64
+r0
+
